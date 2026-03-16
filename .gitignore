@@ -2,5 +2,11 @@
 /deps/
 /.elixir_ls/
 *.ez
+*.beam
 erl_crash.dump
-/CLAUDE.md
+/doc/
+/cover/
+/tmp/
+.fetch
+/priv/plts/
+/.expert/
