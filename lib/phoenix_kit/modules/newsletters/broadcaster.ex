@@ -56,16 +56,20 @@ defmodule PhoenixKit.Modules.Newsletters.Broadcaster do
     {:ok, broadcast} = Newsletters.update_broadcast(broadcast, %{total_recipients: total})
 
     # Process in batches using transaction-wrapped stream
-    repo.transaction(fn ->
-      stream_active_members(broadcast.list_uuid)
-      |> Stream.chunk_every(@batch_size)
-      |> Enum.each(fn batch ->
-        process_batch(broadcast, batch, repo)
-      end)
-    end)
+    case repo.transaction(fn ->
+           stream_active_members(broadcast.list_uuid)
+           |> Stream.chunk_every(@batch_size)
+           |> Enum.each(fn batch ->
+             process_batch(broadcast, batch, repo)
+           end)
+         end) do
+      {:ok, _} ->
+        Logger.info("Broadcaster: Enqueued #{total} deliveries for broadcast #{broadcast.uuid}")
+        {:ok, broadcast}
 
-    Logger.info("Broadcaster: Enqueued #{total} deliveries for broadcast #{broadcast.uuid}")
-    {:ok, broadcast}
+      {:error, reason} ->
+        {:error, reason}
+    end
   end
 
   defp stream_active_members(list_uuid) do
