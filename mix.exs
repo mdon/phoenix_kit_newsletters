@@ -23,7 +23,8 @@ defmodule PhoenixKitNewsletters.MixProject do
 
   defp deps do
     [
-      {:phoenix_kit, "~> 1.7", path: "/app"},
+      # path: "/app" is temporary — remove once phoenix_kit >= 1.7.73 is published to Hex
+      {:phoenix_kit, "~> 1.7.73", path: "/app"},
       {:phoenix_live_view, "~> 1.1"},
       {:oban, "~> 2.20"},
       {:earmark, "~> 1.4"},
