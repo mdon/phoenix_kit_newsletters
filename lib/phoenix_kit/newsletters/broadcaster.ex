@@ -108,7 +108,8 @@ defmodule PhoenixKit.Newsletters.Broadcaster do
     Oban.insert_all(jobs)
   end
 
-  defp strip_html(html) do
+  @doc false
+  def strip_html(html) do
     html
     |> String.replace(~r/<br\s*\/?>/, "\n")
     |> String.replace(~r/<\/p>/, "\n\n")

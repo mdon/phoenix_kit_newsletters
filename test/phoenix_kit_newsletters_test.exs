@@ -70,11 +70,7 @@ defmodule PhoenixKitNewslettersTest do
   end
 
   describe "admin_tabs/0" do
-    test "returns a list of Tab structs" do
-      assert [_ | _] = Newsletters.admin_tabs()
-    end
-
-    test "admin_tabs returns a non-empty list" do
+    test "returns a non-empty list" do
       assert [_ | _] = Newsletters.admin_tabs()
     end
 
@@ -128,16 +124,10 @@ defmodule PhoenixKitNewslettersTest do
   end
 
   describe "version/0" do
-    test "returns a version string" do
+    test "returns a valid semver string" do
       version = Newsletters.version()
       assert is_binary(version)
       assert version =~ ~r/^\d+\.\d+\.\d+/
-    end
-
-    test "version/0 returns a valid semver string" do
-      version = Newsletters.version()
-      assert is_binary(version)
-      assert String.match?(version, ~r/^\d+\.\d+\.\d+/)
     end
   end
 

@@ -58,9 +58,13 @@ defmodule PhoenixKit.Newsletters.Web.UnsubscribeControllerTest do
     end
 
     test "valid signed token verifies successfully" do
-      token = Phoenix.Token.sign(@secret_key_base, "unsubscribe", %{user: "uuid", list: "uuid"})
+      token =
+        Phoenix.Token.sign(@secret_key_base, "unsubscribe", %{
+          user_uuid: "uuid",
+          list_uuid: "uuid"
+        })
 
-      assert {:ok, %{user: "uuid", list: "uuid"}} =
+      assert {:ok, %{user_uuid: "uuid", list_uuid: "uuid"}} =
                Phoenix.Token.verify(@secret_key_base, "unsubscribe", token, max_age: 604_800)
     end
 

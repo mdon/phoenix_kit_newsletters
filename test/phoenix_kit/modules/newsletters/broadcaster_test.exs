@@ -38,68 +38,22 @@ defmodule PhoenixKit.Modules.Newsletters.BroadcasterTest do
     end
   end
 
-  describe "strip_html (via Broadcaster internals)" do
-    # Tests HTML stripping logic by verifying the text body produced
-    # when rendering a broadcast with known HTML content.
-
-    test "plain text conversion removes HTML tags" do
-      html = "<p>Hello <strong>world</strong></p>"
-
-      text =
-        html
-        |> String.replace(~r/<br\s*\/?>/, "\n")
-        |> String.replace(~r/<\/p>/, "\n\n")
-        |> String.replace(~r/<[^>]+>/, "")
-        |> String.trim()
-
-      assert text == "Hello world"
+  describe "strip_html/1" do
+    test "removes HTML tags" do
+      assert Broadcaster.strip_html("<p>Hello <strong>world</strong></p>") == "Hello world"
     end
 
-    test "br tags become newlines" do
-      html = "Line one<br>Line two<br/>Line three"
-
-      text =
-        html
-        |> String.replace(~r/<br\s*\/?>/, "\n")
-        |> String.replace(~r/<\/p>/, "\n\n")
-        |> String.replace(~r/<[^>]+>/, "")
-        |> String.trim()
-
-      assert text == "Line one\nLine two\nLine three"
+    test "converts br tags to newlines" do
+      assert Broadcaster.strip_html("Line one<br>Line two<br/>Line three") ==
+               "Line one\nLine two\nLine three"
     end
 
-    test "paragraph tags become double newlines" do
-      html = "<p>First</p><p>Second</p>"
-
-      text =
-        html
-        |> String.replace(~r/<br\s*\/?>/, "\n")
-        |> String.replace(~r/<\/p>/, "\n\n")
-        |> String.replace(~r/<[^>]+>/, "")
-        |> String.trim()
-
-      assert text == "First\n\nSecond"
+    test "converts paragraph tags to double newlines" do
+      assert Broadcaster.strip_html("<p>First</p><p>Second</p>") == "First\n\nSecond"
     end
 
-    test "empty html produces empty text" do
-      html = ""
-
-      text =
-        html
-        |> String.replace(~r/<br\s*\/?>/, "\n")
-        |> String.replace(~r/<\/p>/, "\n\n")
-        |> String.replace(~r/<[^>]+>/, "")
-        |> String.trim()
-
-      assert text == ""
-    end
-  end
-
-  describe "batch_size constant" do
-    test "Broadcaster has a defined batch size" do
-      # The @batch_size is private, but we can verify the module loads correctly
-      # which indirectly confirms the constant is valid Elixir.
-      assert Code.ensure_loaded?(Broadcaster)
+    test "returns empty string for empty input" do
+      assert Broadcaster.strip_html("") == ""
     end
   end
 end
