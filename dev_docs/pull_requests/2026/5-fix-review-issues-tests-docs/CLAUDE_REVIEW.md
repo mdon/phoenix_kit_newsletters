@@ -28,7 +28,7 @@ The namespace was renamed from `PhoenixKit.Modules.Newsletters` to `PhoenixKit.N
 
 **Fix:** Move test files to `test/phoenix_kit/newsletters/` to match the source layout.
 
-**Resolution:** Moved both test files to `test/phoenix_kit/newsletters/`. Updated broadcaster test module name to `PhoenixKit.Newsletters.BroadcasterTest`. Removed empty `test/phoenix_kit/modules/` directory tree. Also fixed a pre-existing bug where `function_exported?` returned false because `Code.ensure_loaded?` wasn't called first — consolidated the controller's module structure tests into a single test that loads the module before checking exports.
+**Resolution:** Moved both test files to `test/phoenix_kit/newsletters/`. Updated broadcaster test module name to `PhoenixKit.Newsletters.BroadcasterTest`. Removed empty `test/phoenix_kit/modules/` directory tree. Also fixed a pre-existing bug where `function_exported?` returned false because `Code.ensure_loaded?` wasn't called first — consolidated module structure tests to load the module before checking exports.
 
 **Confidence:** 95/100
 
@@ -57,44 +57,45 @@ All three callers updated. `Earmark` is now called in exactly one module. Dedica
 
 ---
 
-### 3. [QUALITY - LOW] Duplicate test case — OPEN
+### 3. [QUALITY - LOW] Duplicate test cases — FIXED
 
 **File:** `test/phoenix_kit_newsletters_test.exs`
 
-`"returns a list of Tab structs"` and `"admin_tabs returns a non-empty list"` are identical — both assert `[_ | _] = Newsletters.admin_tabs()`.
+Multiple duplicate tests found:
+- `"returns a list of Tab structs"` and `"admin_tabs returns a non-empty list"` — identical assertions
+- `"returns a version string"` and `"version/0 returns a valid semver string"` — same check with different wording
 
-**Fix:** Remove one of the duplicates.
+**Resolution:** Removed the duplicate in each pair, keeping one test with a clear name. Also consolidated `enable_system/0` and `disable_system/0` export checks into a single test with `Code.ensure_loaded?` called first — fixing the pre-existing `disable_system/0` test failure.
 
 **Confidence:** 99/100
 
 ---
 
-### 4. [QUALITY - LOW] Token tests test Phoenix.Token, not the controller — OPEN
+### 4. [QUALITY - LOW] Token tests test Phoenix.Token, not the controller — FIXED
 
-**File:** `test/phoenix_kit/newsletters/web/unsubscribe_controller_test.exs` lines 22–73
+**File:** `test/phoenix_kit/newsletters/web/unsubscribe_controller_test.exs`
 
-The `"token verification"` describe block tests `Phoenix.Token.verify/4` and `Phoenix.Token.sign/3` directly with a standalone key base. These tests verify Phoenix library behavior, not controller behavior. They won't catch regressions in how the controller uses tokens (e.g., wrong salt, wrong max_age, missing endpoint config).
+The `"token verification"` describe block tested `Phoenix.Token.verify/4` and `Phoenix.Token.sign/3` directly with a standalone key base. These tests verified Phoenix library behavior, not controller behavior.
 
-**Fix:** Consider integration tests that call the controller actions with `Plug.Test.conn/3` or `Phoenix.ConnTest`, verifying the actual redirect/flash behavior for valid, invalid, and missing tokens.
+**Resolution:** Replaced with tests that call `UnsubscribeController.unsubscribe/2` directly via `Plug.Test.conn/3`, verifying actual redirect (302) and flash behavior for the missing-token fallback path. Token-verification paths require a running `PhoenixKitWeb.Endpoint` and are documented as needing integration tests in the host application.
 
 **Confidence:** 85/100
 
 ---
 
-### 5. [QUALITY - LOW] Controller changed from `use PhoenixKitWeb, :controller` to `use Phoenix.Controller` directly — OPEN
+### 5. [QUALITY - LOW] Controller changed from `use PhoenixKitWeb, :controller` to `use Phoenix.Controller` directly — FIXED
 
 **File:** `lib/phoenix_kit/newsletters/web/unsubscribe_controller.ex` lines 4–5
 
 ```elixir
-# Before:
-use PhoenixKitWeb, :controller
-
-# After:
+# PR #5 changed to:
 use Phoenix.Controller, formats: [:html]
 import Plug.Conn
 ```
 
-This bypasses any shared controller setup (error handling, common plugs, imports) that `PhoenixKitWeb` may provide. This may be intentional to reduce coupling to the host app, but should be verified.
+This bypassed shared controller setup from `PhoenixKitWeb` (layout config, Gettext, core components, verified routes).
+
+**Resolution:** Restored `use PhoenixKitWeb, :controller` which provides: layout via `PhoenixKit.LayoutConfig`, `formats: [:html, :json]`, `import Plug.Conn`, Gettext backend, core components, and verified routes — all of which the unsubscribe controller benefits from.
 
 **Confidence:** 70/100
 
@@ -109,4 +110,4 @@ This bypasses any shared controller setup (error handling, common plugs, imports
 
 ## Verdict
 
-**Approved with suggestions** — The functional changes (fallback clause, version fix, README) are correct and valuable. Medium issues (test directory mismatch, content rendering misplaced in Broadcaster) have been fixed in a follow-up. Three low-priority items remain open for future cleanup.
+**All issues resolved.** The functional changes from PR #5 (fallback clause, version fix, README) were correct and valuable. All 5 review issues have been fixed in follow-up commits: test directory realigned with namespace, content rendering extracted to dedicated module, duplicate tests removed, controller tests rewritten to test actual behavior, and `use PhoenixKitWeb, :controller` restored.

@@ -11,58 +11,38 @@ defmodule PhoenixKit.Newsletters.Web.UnsubscribeControllerTest do
     end
   end
 
-  describe "token verification" do
-    # Use a string key base to avoid requiring a running Phoenix Endpoint in tests
-    @secret_key_base String.duplicate("test_secret_key_base_for_unit_tests_only_", 2)
+  defp build_conn(method, path) do
+    session_opts = Plug.Session.init(store: :cookie, key: "_test", signing_salt: "test_salt")
 
-    test "Phoenix.Token.verify rejects invalid tokens" do
-      result =
-        Phoenix.Token.verify(
-          @secret_key_base,
-          "unsubscribe",
-          "invalid_token_string",
-          max_age: 604_800
-        )
+    Plug.Test.conn(method, path)
+    |> Map.put(:secret_key_base, String.duplicate("a", 64))
+    |> Plug.Session.call(session_opts)
+    |> Plug.Conn.fetch_session()
+    |> Plug.Conn.fetch_query_params()
+    |> Phoenix.Controller.fetch_flash(%{})
+  end
 
-      assert {:error, _reason} = result
+  describe "unsubscribe/2 with missing token" do
+    test "redirects to home when no token param is present" do
+      conn =
+        build_conn(:get, "/newsletters/unsubscribe")
+        |> UnsubscribeController.unsubscribe(%{})
+
+      assert conn.status == 302
+      [location] = Plug.Conn.get_resp_header(conn, "location")
+      assert location =~ "/"
     end
 
-    test "Phoenix.Token.verify rejects tampered tokens" do
-      result =
-        Phoenix.Token.verify(
-          @secret_key_base,
-          "unsubscribe",
-          "SFMyNTY.tampered.signature",
-          max_age: 604_800
-        )
+    test "sets error flash when no token param is present" do
+      conn =
+        build_conn(:get, "/newsletters/unsubscribe")
+        |> UnsubscribeController.unsubscribe(%{})
 
-      assert {:error, _reason} = result
-    end
-
-    test "Phoenix.Token.verify rejects empty token" do
-      result =
-        Phoenix.Token.verify(
-          @secret_key_base,
-          "unsubscribe",
-          "",
-          max_age: 604_800
-        )
-
-      assert {:error, _reason} = result
-    end
-
-    test "valid signed token verifies successfully" do
-      token = Phoenix.Token.sign(@secret_key_base, "unsubscribe", %{user: "uuid", list: "uuid"})
-
-      assert {:ok, %{user: "uuid", list: "uuid"}} =
-               Phoenix.Token.verify(@secret_key_base, "unsubscribe", token, max_age: 604_800)
-    end
-
-    test "token signed with different salt is rejected" do
-      token = Phoenix.Token.sign(@secret_key_base, "other_salt", "payload")
-
-      assert {:error, :invalid} =
-               Phoenix.Token.verify(@secret_key_base, "unsubscribe", token, max_age: 604_800)
+      assert conn.assigns[:flash]["error"] =~ "Invalid or expired"
     end
   end
+
+  # Note: Tests for unsubscribe/2 with token and process_unsubscribe/2 require
+  # a running PhoenixKitWeb.Endpoint (for Phoenix.Token.verify). These should
+  # be covered by integration tests in the host application.
 end

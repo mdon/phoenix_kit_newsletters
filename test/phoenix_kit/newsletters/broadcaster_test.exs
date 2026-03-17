@@ -5,11 +5,8 @@ defmodule PhoenixKit.Newsletters.BroadcasterTest do
   alias PhoenixKit.Newsletters.Broadcaster
 
   describe "module structure" do
-    test "Broadcaster module is loadable" do
+    test "Broadcaster module is loadable and exports send/1" do
       assert Code.ensure_loaded?(Broadcaster)
-    end
-
-    test "exports send/1" do
       assert function_exported?(Broadcaster, :send, 1)
     end
   end
