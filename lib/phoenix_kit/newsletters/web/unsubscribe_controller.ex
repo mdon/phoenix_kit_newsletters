@@ -84,6 +84,7 @@ defmodule PhoenixKit.Newsletters.Web.UnsubscribeController do
     end
   end
 
+  # Catch-all for invalid/expired tokens or missing parameters
   def process_unsubscribe(conn, _params) do
     conn
     |> put_flash(:error, "Invalid or expired unsubscribe link.")
