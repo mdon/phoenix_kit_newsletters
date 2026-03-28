@@ -7,16 +7,24 @@ defmodule PhoenixKitNewsletters.MixProject do
   def project do
     [
       app: :phoenix_kit_newsletters,
-      name: "PhoenixKitNewsletters",
       version: @version,
       elixir: "~> 1.18",
+      elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       deps: deps(),
+      aliases: aliases(),
       package: package(),
-      docs: docs(),
-      dialyzer: [plt_add_apps: [:phoenix_kit]],
       description:
-        "Newsletters module for PhoenixKit — email broadcasts and subscription management"
+        "Newsletters module for PhoenixKit — email broadcasts and subscription management",
+
+      # Dialyzer
+      dialyzer: [plt_add_apps: [:phoenix_kit]],
+
+      # Docs
+      name: "PhoenixKitNewsletters",
+      source_url: @source_url,
+      homepage_url: @source_url,
+      docs: docs()
     ]
   end
 
@@ -24,13 +32,27 @@ defmodule PhoenixKitNewsletters.MixProject do
     [extra_applications: [:logger]]
   end
 
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
+
+  defp aliases do
+    [
+      quality: ["format", "credo --strict", "dialyzer"],
+      "quality.ci": ["format --check-formatted", "credo --strict", "dialyzer"],
+      precommit: ["compile", "quality"]
+    ]
+  end
+
   defp deps do
     [
-      {:phoenix_kit, "~> 1.7.73"},
+      # Core
+      {:phoenix_kit, "~> 1.7"},
       {:phoenix_live_view, "~> 1.1"},
       {:oban, "~> 2.20"},
       {:earmark, "~> 1.4"},
       {:uuidv7, "~> 1.0"},
+
+      # Dev/test
       {:ex_doc, "~> 0.39", only: :dev, runtime: false},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false}
@@ -41,7 +63,7 @@ defmodule PhoenixKitNewsletters.MixProject do
     [
       licenses: ["MIT"],
       links: %{"GitHub" => @source_url},
-      files: ~w(lib .formatter.exs mix.exs README.md LICENSE)
+      files: ~w(lib .formatter.exs mix.exs README.md CHANGELOG.md LICENSE)
     ]
   end
 
