@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.1.1 (2026-04-02)
+
+### Improvements
+
+- Migrate select elements to daisyUI 5 label wrapper pattern
+- Fix compile warnings for optional Emails dependency
+- Add `css_sources/0` for Tailwind CSS scanning of component styles
+
+### Fixes
+
+- Fix remaining code review issues (token keys, catch-all handlers, strip_html)
+- Extract `Content` module for better separation of concerns
+- Add fallback clause to `UnsubscribeController` for missing token
+- Fix duplicate admin route and UUID validation in ListMembers
+- Move DB queries from `mount/3` to `handle_params/3` (LiveView best practice)
+
 ## 0.1.0 (2026-03-17)
 
 Initial release of PhoenixKit Newsletters as a standalone Hex package, extracted from the PhoenixKit monolith.
