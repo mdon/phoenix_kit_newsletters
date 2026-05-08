@@ -1,0 +1,48 @@
+## "msgid"s in this file come from POT (.pot) files.
+##
+## Do not add, change, or remove `msgid`s manually here as
+## they're tied to the ones in the corresponding POT file
+## (with the same domain).
+##
+## Use `mix gettext.extract --merge` or `mix gettext.merge`
+## to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: et\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/phoenix_kit/newsletters/newsletters.ex
+msgid "Newsletters"
+msgstr "Uudiskirjad"
+
+#: lib/phoenix_kit/newsletters/newsletters.ex
+msgid "Broadcasts"
+msgstr "Saadetised"
+
+#: lib/phoenix_kit/newsletters/newsletters.ex
+msgid "New Broadcast"
+msgstr "Uus saadetis"
+
+#: lib/phoenix_kit/newsletters/newsletters.ex
+msgid "Edit Broadcast"
+msgstr "Muuda saadetist"
+
+#: lib/phoenix_kit/newsletters/newsletters.ex
+msgid "Broadcast Details"
+msgstr "Saadetise andmed"
+
+#: lib/phoenix_kit/newsletters/newsletters.ex
+msgid "Lists"
+msgstr "Loendid"
+
+#: lib/phoenix_kit/newsletters/newsletters.ex
+msgid "New List"
+msgstr "Uus loend"
+
+#: lib/phoenix_kit/newsletters/newsletters.ex
+msgid "Edit List"
+msgstr "Muuda loendit"
+
+#: lib/phoenix_kit/newsletters/newsletters.ex
+msgid "List Members"
+msgstr "Loendi liikmed"
