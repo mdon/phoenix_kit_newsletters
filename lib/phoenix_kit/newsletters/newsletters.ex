@@ -76,7 +76,8 @@ defmodule PhoenixKit.Newsletters do
         group: :admin_modules,
         subtab_display: :when_active,
         highlight_with_subtabs: false,
-        subtab_indent: "pl-4"
+        subtab_indent: "pl-4",
+        gettext_backend: PhoenixKit.Newsletters.Gettext
       ),
       Tab.new!(
         id: :admin_newsletters_broadcasts,
@@ -88,7 +89,8 @@ defmodule PhoenixKit.Newsletters do
         permission: "newsletters",
         parent: :admin_newsletters,
         match: :prefix,
-        live_view: {Web.Broadcasts, :index}
+        live_view: {Web.Broadcasts, :index},
+        gettext_backend: PhoenixKit.Newsletters.Gettext
       ),
       Tab.new!(
         id: :admin_newsletters_broadcast_new,
@@ -98,7 +100,8 @@ defmodule PhoenixKit.Newsletters do
         permission: "newsletters",
         parent: :admin_newsletters,
         visible: false,
-        live_view: {Web.BroadcastEditor, :new}
+        live_view: {Web.BroadcastEditor, :new},
+        gettext_backend: PhoenixKit.Newsletters.Gettext
       ),
       Tab.new!(
         id: :admin_newsletters_broadcast_edit,
@@ -108,7 +111,8 @@ defmodule PhoenixKit.Newsletters do
         permission: "newsletters",
         parent: :admin_newsletters,
         visible: false,
-        live_view: {Web.BroadcastEditor, :edit}
+        live_view: {Web.BroadcastEditor, :edit},
+        gettext_backend: PhoenixKit.Newsletters.Gettext
       ),
       Tab.new!(
         id: :admin_newsletters_broadcast_details,
@@ -118,7 +122,8 @@ defmodule PhoenixKit.Newsletters do
         permission: "newsletters",
         parent: :admin_newsletters,
         visible: false,
-        live_view: {Web.BroadcastDetails, :show}
+        live_view: {Web.BroadcastDetails, :show},
+        gettext_backend: PhoenixKit.Newsletters.Gettext
       ),
       Tab.new!(
         id: :admin_newsletters_lists,
@@ -130,7 +135,8 @@ defmodule PhoenixKit.Newsletters do
         permission: "newsletters",
         parent: :admin_newsletters,
         match: :prefix,
-        live_view: {Web.Lists, :index}
+        live_view: {Web.Lists, :index},
+        gettext_backend: PhoenixKit.Newsletters.Gettext
       ),
       Tab.new!(
         id: :admin_newsletters_list_new,
@@ -140,7 +146,8 @@ defmodule PhoenixKit.Newsletters do
         permission: "newsletters",
         parent: :admin_newsletters,
         visible: false,
-        live_view: {Web.ListEditor, :new}
+        live_view: {Web.ListEditor, :new},
+        gettext_backend: PhoenixKit.Newsletters.Gettext
       ),
       Tab.new!(
         id: :admin_newsletters_list_edit,
@@ -150,7 +157,8 @@ defmodule PhoenixKit.Newsletters do
         permission: "newsletters",
         parent: :admin_newsletters,
         visible: false,
-        live_view: {Web.ListEditor, :edit}
+        live_view: {Web.ListEditor, :edit},
+        gettext_backend: PhoenixKit.Newsletters.Gettext
       ),
       Tab.new!(
         id: :admin_newsletters_list_members,
@@ -160,7 +168,8 @@ defmodule PhoenixKit.Newsletters do
         permission: "newsletters",
         parent: :admin_newsletters,
         visible: false,
-        live_view: {Web.ListMembers, :index}
+        live_view: {Web.ListMembers, :index},
+        gettext_backend: PhoenixKit.Newsletters.Gettext
       )
     ]
   end

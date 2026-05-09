@@ -1,7 +1,7 @@
 defmodule PhoenixKitNewsletters.MixProject do
   use Mix.Project
 
-  @version "0.1.2"
+  @version "0.1.3"
   @source_url "https://github.com/BeamLabEU/phoenix_kit_newsletters"
 
   def project do
@@ -29,7 +29,7 @@ defmodule PhoenixKitNewsletters.MixProject do
   end
 
   def application do
-    [extra_applications: [:logger]]
+    [extra_applications: [:logger, :gettext]]
   end
 
   defp elixirc_paths(:test), do: ["lib", "test/support"]
@@ -48,6 +48,7 @@ defmodule PhoenixKitNewsletters.MixProject do
       # Core
       {:phoenix_kit, "~> 1.7"},
       {:phoenix_live_view, "~> 1.1"},
+      {:gettext, "~> 1.0"},
       {:oban, "~> 2.20"},
       {:earmark, "~> 1.4"},
       {:uuidv7, "~> 1.0"},
@@ -63,7 +64,7 @@ defmodule PhoenixKitNewsletters.MixProject do
     [
       licenses: ["MIT"],
       links: %{"GitHub" => @source_url},
-      files: ~w(lib .formatter.exs mix.exs README.md CHANGELOG.md LICENSE)
+      files: ~w(lib priv .formatter.exs mix.exs README.md CHANGELOG.md LICENSE)
     ]
   end
 
