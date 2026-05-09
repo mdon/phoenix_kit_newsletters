@@ -163,7 +163,7 @@ defmodule PhoenixKit.Newsletters.Web.BroadcastEditor do
   # Guard: Emails.Templates is an optional dependency — only call if loaded
   defp load_templates do
     if Code.ensure_loaded?(@email_templates_mod) do
-      apply(@email_templates_mod, :list_templates, [%{status: "active"}])
+      soft_call(@email_templates_mod, :list_templates, [%{status: "active"}])
     else
       []
     end
@@ -263,7 +263,8 @@ defmodule PhoenixKit.Newsletters.Web.BroadcastEditor do
   defp inject_into_template(html, _, _), do: html
 
   defp template_display_name(template) do
-    apply(@email_template_mod, :get_translation, [template.display_name, "en"]) || template.name
+    soft_call(@email_template_mod, :get_translation, [template.display_name, "en"]) ||
+      template.name
   end
 
   defp apply_template_if_found(html, template_uuid, templates) do
@@ -272,7 +273,7 @@ defmodule PhoenixKit.Newsletters.Web.BroadcastEditor do
         html
 
       tmpl ->
-        html_body = apply(@email_template_mod, :get_translation, [tmpl.html_body, "en"])
+        html_body = soft_call(@email_template_mod, :get_translation, [tmpl.html_body, "en"])
         String.replace(html_body, "{{content}}", html)
     end
   end
@@ -291,4 +292,8 @@ defmodule PhoenixKit.Newsletters.Web.BroadcastEditor do
   end
 
   defp parse_datetime(_), do: nil
+
+  # Intentional apply/3 — calls optional soft-dependency modules to avoid compile-time warnings
+  # credo:disable-for-next-line Credo.Check.Refactor.Apply
+  defp soft_call(mod, fun, args), do: apply(mod, fun, args)
 end

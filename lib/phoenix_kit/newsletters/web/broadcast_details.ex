@@ -14,6 +14,9 @@ defmodule PhoenixKit.Newsletters.Web.BroadcastDetails do
   alias PhoenixKit.Settings
   alias PhoenixKit.Utils.Routes
 
+  # Optional soft dependency — use module atom to avoid compile-time warnings
+  @email_template_mod PhoenixKit.Modules.Emails.Template
+
   @impl true
   def mount(_params, _session, socket) do
     if Newsletters.enabled?() do
@@ -154,4 +157,17 @@ defmodule PhoenixKit.Newsletters.Web.BroadcastDetails do
   defp stat_value(stats, key) do
     Map.get(stats, key, 0)
   end
+
+  defp template_display_name(template) do
+    if Code.ensure_loaded?(@email_template_mod) do
+      soft_call(@email_template_mod, :get_translation, [template.display_name, "en"]) ||
+        template.name
+    else
+      template.name
+    end
+  end
+
+  # Intentional apply/3 — calls optional soft-dependency modules to avoid compile-time warnings
+  # credo:disable-for-next-line Credo.Check.Refactor.Apply
+  defp soft_call(mod, fun, args), do: apply(mod, fun, args)
 end

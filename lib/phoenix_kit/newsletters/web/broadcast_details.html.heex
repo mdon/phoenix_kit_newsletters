@@ -80,11 +80,7 @@
               <p class="text-base-content/60 text-xs font-medium uppercase mb-1">Template</p>
               <p class="font-medium">
                 {if Map.get(@broadcast, :template),
-                  do:
-                    PhoenixKit.Modules.Emails.Template.get_translation(
-                      @broadcast.template.display_name,
-                      "en"
-                    ) || @broadcast.template.name,
+                  do: template_display_name(@broadcast.template),
                   else: "-"}
               </p>
             </div>

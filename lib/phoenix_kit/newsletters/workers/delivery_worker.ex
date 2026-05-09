@@ -25,8 +25,8 @@ defmodule PhoenixKit.Newsletters.Workers.DeliveryWorker do
 
   require Logger
 
-  # Optional soft dependency — guarded by Code.ensure_loaded? at runtime
-  alias PhoenixKit.Modules.Emails.Template, as: EmailTemplate
+  # Optional soft dependency — use module atom to avoid compile-time warnings
+  @email_template_mod PhoenixKit.Modules.Emails.Template
 
   alias PhoenixKit.Newsletters
   alias PhoenixKit.Newsletters.Delivery
@@ -126,12 +126,12 @@ defmodule PhoenixKit.Newsletters.Workers.DeliveryWorker do
   end
 
   defp apply_email_template(content, template_uuid) do
-    case repo().get(EmailTemplate, template_uuid) do
+    case repo().get(@email_template_mod, template_uuid) do
       nil ->
         content
 
       tmpl ->
-        html = EmailTemplate.get_translation(tmpl.html_body, "en")
+        html = soft_call(@email_template_mod, :get_translation, [tmpl.html_body, "en"])
         String.replace(html, "{{content}}", content)
     end
   end
@@ -172,4 +172,8 @@ defmodule PhoenixKit.Newsletters.Workers.DeliveryWorker do
   end
 
   defp repo, do: PhoenixKit.RepoHelper.repo()
+
+  # Intentional apply/3 — calls optional soft-dependency modules to avoid compile-time warnings
+  # credo:disable-for-next-line Credo.Check.Refactor.Apply
+  defp soft_call(mod, fun, args), do: apply(mod, fun, args)
 end
