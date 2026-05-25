@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.4 - 2026-05-25
+
+### Added
+- Full i18n coverage for the entire newsletters admin panel. Every admin LiveView (Broadcasts, Broadcast Editor, Broadcast Details, Lists, List Editor, List Members) and template now wraps user-facing strings — labels, buttons, table headers, filters, flash messages, status/delivery badges and confirm dialogs — in `gettext`/`ngettext`, backed by `PhoenixKit.Newsletters.Gettext`.
+- Complete `en`/`ru`/`et` translations for all new msgids, including plural forms (`nplurals=3` for `ru`, `nplurals=2` for `et`) for the subscriber and "added users" counters.
+
+### Changed
+- Normalized all multi-word admin labels (page titles, nav tab labels, buttons, dialogs) on sentence case for consistency: `New broadcast`, `Edit broadcast`, `Broadcast details`, `New list`, `Edit list`, `List members`, `Newsletter lists`.
+- Hardened the `precommit` alias to `compile --force --warnings-as-errors`, `deps.unlock --check-unused`, and `quality.ci`; refreshed dependency lockfile.
+
 ## 0.1.3 - 2026-05-09
 
 ### Added

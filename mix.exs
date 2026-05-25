@@ -1,7 +1,7 @@
 defmodule PhoenixKitNewsletters.MixProject do
   use Mix.Project
 
-  @version "0.1.3"
+  @version "0.1.4"
   @source_url "https://github.com/BeamLabEU/phoenix_kit_newsletters"
 
   def project do
@@ -39,7 +39,11 @@ defmodule PhoenixKitNewsletters.MixProject do
     [
       quality: ["format", "credo --strict", "dialyzer"],
       "quality.ci": ["format --check-formatted", "credo --strict", "dialyzer"],
-      precommit: ["compile --force --warnings-as-errors", "deps.unlock --check-unused", "quality.ci"]
+      precommit: [
+        "compile --force --warnings-as-errors",
+        "deps.unlock --check-unused",
+        "quality.ci"
+      ]
     ]
   end
 
