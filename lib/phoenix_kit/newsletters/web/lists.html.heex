@@ -8,14 +8,14 @@
 <div class="container flex-col mx-auto px-4 py-6">
   <.admin_page_header
     back={Routes.path("/admin")}
-    title={gettext("Newsletter Lists")}
+    title={gettext("Newsletter lists")}
     subtitle={gettext("Manage your email subscriber lists")}
   />
 
   <%!-- Actions Bar --%>
   <div class="flex justify-end mb-6">
     <.pk_link navigate="/admin/newsletters/lists/new" class="btn btn-sm btn-primary">
-      <.icon name="hero-plus" class="w-4 h-4 mr-1" /> {gettext("New List")}
+      <.icon name="hero-plus" class="w-4 h-4 mr-1" /> {gettext("New list")}
     </.pk_link>
   </div>
 

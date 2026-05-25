@@ -24,7 +24,7 @@ defmodule PhoenixKit.Newsletters.Web.BroadcastEditor do
     if Newsletters.enabled?() do
       socket =
         socket
-        |> assign(:page_title, gettext("New Broadcast"))
+        |> assign(:page_title, gettext("New broadcast"))
         |> assign(:project_title, Settings.get_project_title())
         |> assign(:lists, [])
         |> assign(:templates, [])
@@ -56,7 +56,7 @@ defmodule PhoenixKit.Newsletters.Web.BroadcastEditor do
      socket
      |> assign(:lists, lists)
      |> assign(:templates, templates)
-     |> assign(:page_title, gettext("Edit Broadcast"))
+     |> assign(:page_title, gettext("Edit broadcast"))
      |> assign(:broadcast, broadcast)
      |> assign(:subject, broadcast.subject || "")
      |> assign(:list_uuid, broadcast.list_uuid || "")

@@ -25,17 +25,17 @@ msgstr ""
 #: lib/phoenix_kit/newsletters/web/broadcast_editor.ex:27
 #: lib/phoenix_kit/newsletters/web/broadcasts.html.heex:34
 #, elixir-autogen
-msgid "New Broadcast"
+msgid "New broadcast"
 msgstr ""
 
 #: lib/phoenix_kit/newsletters/web/broadcast_editor.ex:59
 #, elixir-autogen
-msgid "Edit Broadcast"
+msgid "Edit broadcast"
 msgstr ""
 
 #: lib/phoenix_kit/newsletters/web/broadcast_details.html.heex:11
 #, elixir-autogen
-msgid "Broadcast Details"
+msgid "Broadcast details"
 msgstr ""
 
 #: lib/phoenix_kit/newsletters/newsletters.ex
@@ -45,15 +45,15 @@ msgstr ""
 #: lib/phoenix_kit/newsletters/web/list_editor.ex:56
 #: lib/phoenix_kit/newsletters/web/lists.html.heex:18
 #, elixir-autogen
-msgid "New List"
+msgid "New list"
 msgstr ""
 
 #: lib/phoenix_kit/newsletters/newsletters.ex
-msgid "Edit List"
+msgid "Edit list"
 msgstr ""
 
 #: lib/phoenix_kit/newsletters/newsletters.ex
-msgid "List Members"
+msgid "List members"
 msgstr ""
 
 ## --- Common admin UI ---
@@ -485,7 +485,7 @@ msgstr ""
 #: lib/phoenix_kit/newsletters/web/lists.ex:23
 #: lib/phoenix_kit/newsletters/web/lists.html.heex:11
 #, elixir-autogen
-msgid "Newsletter Lists"
+msgid "Newsletter lists"
 msgstr ""
 
 #: lib/phoenix_kit/newsletters/web/lists.ex:53

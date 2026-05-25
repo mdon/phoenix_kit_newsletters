@@ -94,7 +94,7 @@ defmodule PhoenixKit.Newsletters do
       ),
       Tab.new!(
         id: :admin_newsletters_broadcast_new,
-        label: "New Broadcast",
+        label: "New broadcast",
         path: "newsletters/broadcasts/new",
         level: :admin,
         permission: "newsletters",
@@ -105,7 +105,7 @@ defmodule PhoenixKit.Newsletters do
       ),
       Tab.new!(
         id: :admin_newsletters_broadcast_edit,
-        label: "Edit Broadcast",
+        label: "Edit broadcast",
         path: "newsletters/broadcasts/:id/edit",
         level: :admin,
         permission: "newsletters",
@@ -116,7 +116,7 @@ defmodule PhoenixKit.Newsletters do
       ),
       Tab.new!(
         id: :admin_newsletters_broadcast_details,
-        label: "Broadcast Details",
+        label: "Broadcast details",
         path: "newsletters/broadcasts/:id",
         level: :admin,
         permission: "newsletters",
@@ -140,7 +140,7 @@ defmodule PhoenixKit.Newsletters do
       ),
       Tab.new!(
         id: :admin_newsletters_list_new,
-        label: "New List",
+        label: "New list",
         path: "newsletters/lists/new",
         level: :admin,
         permission: "newsletters",
@@ -151,7 +151,7 @@ defmodule PhoenixKit.Newsletters do
       ),
       Tab.new!(
         id: :admin_newsletters_list_edit,
-        label: "Edit List",
+        label: "Edit list",
         path: "newsletters/lists/:id/edit",
         level: :admin,
         permission: "newsletters",
@@ -162,7 +162,7 @@ defmodule PhoenixKit.Newsletters do
       ),
       Tab.new!(
         id: :admin_newsletters_list_members,
-        label: "List Members",
+        label: "List members",
         path: "newsletters/lists/:id/members",
         level: :admin,
         permission: "newsletters",

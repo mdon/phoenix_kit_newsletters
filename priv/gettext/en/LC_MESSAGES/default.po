@@ -23,18 +23,18 @@ msgstr "Broadcasts"
 #: lib/phoenix_kit/newsletters/web/broadcast_editor.ex:27
 #: lib/phoenix_kit/newsletters/web/broadcasts.html.heex:34
 #, elixir-autogen
-msgid "New Broadcast"
-msgstr "New Broadcast"
+msgid "New broadcast"
+msgstr "New broadcast"
 
 #: lib/phoenix_kit/newsletters/web/broadcast_editor.ex:59
 #, elixir-autogen
-msgid "Edit Broadcast"
-msgstr "Edit Broadcast"
+msgid "Edit broadcast"
+msgstr "Edit broadcast"
 
 #: lib/phoenix_kit/newsletters/web/broadcast_details.html.heex:11
 #, elixir-autogen
-msgid "Broadcast Details"
-msgstr "Broadcast Details"
+msgid "Broadcast details"
+msgstr "Broadcast details"
 
 #: lib/phoenix_kit/newsletters/newsletters.ex
 msgid "Lists"
@@ -43,16 +43,16 @@ msgstr "Lists"
 #: lib/phoenix_kit/newsletters/web/list_editor.ex:56
 #: lib/phoenix_kit/newsletters/web/lists.html.heex:18
 #, elixir-autogen
-msgid "New List"
-msgstr "New List"
+msgid "New list"
+msgstr "New list"
 
 #: lib/phoenix_kit/newsletters/newsletters.ex
-msgid "Edit List"
-msgstr "Edit List"
+msgid "Edit list"
+msgstr "Edit list"
 
 #: lib/phoenix_kit/newsletters/newsletters.ex
-msgid "List Members"
-msgstr "List Members"
+msgid "List members"
+msgstr "List members"
 
 ## --- Common admin UI ---
 #: lib/phoenix_kit/newsletters/web/broadcast_details.ex:42
@@ -482,8 +482,8 @@ msgstr "Error"
 #: lib/phoenix_kit/newsletters/web/lists.ex:23
 #: lib/phoenix_kit/newsletters/web/lists.html.heex:11
 #, elixir-autogen
-msgid "Newsletter Lists"
-msgstr "Newsletter Lists"
+msgid "Newsletter lists"
+msgstr "Newsletter lists"
 
 #: lib/phoenix_kit/newsletters/web/lists.ex:53
 #, elixir-autogen

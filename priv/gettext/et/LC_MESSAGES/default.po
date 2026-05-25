@@ -25,17 +25,17 @@ msgstr "Saadetised"
 #: lib/phoenix_kit/newsletters/web/broadcast_editor.ex:27
 #: lib/phoenix_kit/newsletters/web/broadcasts.html.heex:34
 #, elixir-autogen
-msgid "New Broadcast"
+msgid "New broadcast"
 msgstr "Uus saadetis"
 
 #: lib/phoenix_kit/newsletters/web/broadcast_editor.ex:59
 #, elixir-autogen
-msgid "Edit Broadcast"
+msgid "Edit broadcast"
 msgstr "Muuda saadetist"
 
 #: lib/phoenix_kit/newsletters/web/broadcast_details.html.heex:11
 #, elixir-autogen
-msgid "Broadcast Details"
+msgid "Broadcast details"
 msgstr "Saadetise andmed"
 
 #: lib/phoenix_kit/newsletters/newsletters.ex
@@ -45,15 +45,15 @@ msgstr "Loendid"
 #: lib/phoenix_kit/newsletters/web/list_editor.ex:56
 #: lib/phoenix_kit/newsletters/web/lists.html.heex:18
 #, elixir-autogen
-msgid "New List"
+msgid "New list"
 msgstr "Uus loend"
 
 #: lib/phoenix_kit/newsletters/newsletters.ex
-msgid "Edit List"
+msgid "Edit list"
 msgstr "Muuda loendit"
 
 #: lib/phoenix_kit/newsletters/newsletters.ex
-msgid "List Members"
+msgid "List members"
 msgstr "Loendi liikmed"
 
 ## --- Common admin UI ---
@@ -485,7 +485,7 @@ msgstr "Viga"
 #: lib/phoenix_kit/newsletters/web/lists.ex:23
 #: lib/phoenix_kit/newsletters/web/lists.html.heex:11
 #, elixir-autogen
-msgid "Newsletter Lists"
+msgid "Newsletter lists"
 msgstr "Uudiskirjade loendid"
 
 #: lib/phoenix_kit/newsletters/web/lists.ex:53

@@ -20,7 +20,7 @@ defmodule PhoenixKit.Newsletters.Web.Lists do
     if Newsletters.enabled?() do
       socket =
         socket
-        |> assign(:page_title, gettext("Newsletter Lists"))
+        |> assign(:page_title, gettext("Newsletter lists"))
         |> assign(:project_title, Settings.get_project_title())
         |> assign(:lists, [])
         |> assign(:show_confirm_modal, false)

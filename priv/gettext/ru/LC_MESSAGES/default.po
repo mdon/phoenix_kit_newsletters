@@ -26,17 +26,17 @@ msgstr "Выпуски"
 #: lib/phoenix_kit/newsletters/web/broadcast_editor.ex:27
 #: lib/phoenix_kit/newsletters/web/broadcasts.html.heex:34
 #, elixir-autogen
-msgid "New Broadcast"
+msgid "New broadcast"
 msgstr "Новый выпуск"
 
 #: lib/phoenix_kit/newsletters/web/broadcast_editor.ex:59
 #, elixir-autogen
-msgid "Edit Broadcast"
+msgid "Edit broadcast"
 msgstr "Редактирование выпуска"
 
 #: lib/phoenix_kit/newsletters/web/broadcast_details.html.heex:11
 #, elixir-autogen
-msgid "Broadcast Details"
+msgid "Broadcast details"
 msgstr "Детали выпуска"
 
 #: lib/phoenix_kit/newsletters/newsletters.ex
@@ -46,15 +46,15 @@ msgstr "Списки"
 #: lib/phoenix_kit/newsletters/web/list_editor.ex:56
 #: lib/phoenix_kit/newsletters/web/lists.html.heex:18
 #, elixir-autogen
-msgid "New List"
+msgid "New list"
 msgstr "Новый список"
 
 #: lib/phoenix_kit/newsletters/newsletters.ex
-msgid "Edit List"
+msgid "Edit list"
 msgstr "Редактирование списка"
 
 #: lib/phoenix_kit/newsletters/newsletters.ex
-msgid "List Members"
+msgid "List members"
 msgstr "Подписчики списка"
 
 ## --- Common admin UI ---
@@ -486,7 +486,7 @@ msgstr "Ошибка"
 #: lib/phoenix_kit/newsletters/web/lists.ex:23
 #: lib/phoenix_kit/newsletters/web/lists.html.heex:11
 #, elixir-autogen
-msgid "Newsletter Lists"
+msgid "Newsletter lists"
 msgstr "Списки рассылок"
 
 #: lib/phoenix_kit/newsletters/web/lists.ex:53

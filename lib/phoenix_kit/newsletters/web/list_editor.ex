@@ -53,7 +53,7 @@ defmodule PhoenixKit.Newsletters.Web.ListEditor do
   def handle_params(_params, _url, socket) do
     {:noreply,
      socket
-     |> assign(:page_title, gettext("New List"))
+     |> assign(:page_title, gettext("New list"))
      |> assign(:list, nil)
      |> assign(:form, to_form(List.changeset(%List{}, %{})))}
   end
