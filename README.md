@@ -27,7 +27,7 @@ config :my_app, Oban,
   queues: [newsletters: 10]
 ```
 
-See the [Oban documentation](https://hexdocs.pm/oban) for full configuration options.
+See the [Oban documentation](https://oban.hexdocs.pm) for full configuration options.
 
 ## How It Works
 
