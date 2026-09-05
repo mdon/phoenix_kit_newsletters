@@ -24,7 +24,7 @@ defmodule PhoenixKit.Newsletters.Web.Timezone do
 
   @doc """
   The viewer's timezone value — user profile → system setting → "0" (UTC),
-  via core's `PhoenixKit.Utils.Date.get_user_timezone/1`. An IANA id such as
+  core's `PhoenixKit.Utils.Date.get_user_timezone/1` rule. An IANA id such as
   `Europe/Warsaw`, or a legacy fixed offset such as `"2"` on a row written
   before core 2.13.9; never a number, so pass it straight to core's
   per-instant helpers (`shift_to_offset/2`, `parse_datetime_local/2`,
@@ -36,13 +36,20 @@ defmodule PhoenixKit.Newsletters.Web.Timezone do
   only), these are personal actions by the admin viewing/scheduling, so
   their own profile timezone — if they've set one — takes precedence.
   """
-  def user_tz_offset(socket) do
+  @spec viewer_tz(Phoenix.LiveView.Socket.t()) :: String.t()
+  def viewer_tz(socket) do
     case socket.assigns[:phoenix_kit_current_user] do
-      %{} = user -> DateUtils.get_user_timezone(user)
-      _ -> Settings.get_setting_cached("time_zone", "0")
+      # `Map.get/2` rather than core's resolver: the page's user may be a
+      # partial map without the column, and a blank value is "not set".
+      %{} = user ->
+        case Map.get(user, :user_timezone) do
+          tz when is_binary(tz) and tz != "" -> tz
+          _ -> Settings.get_setting_cached("time_zone", "0")
+        end
+
+      _ ->
+        Settings.get_setting_cached("time_zone", "0")
     end
-  rescue
-    _ -> "0"
   end
 
   @doc """
@@ -50,11 +57,12 @@ defmodule PhoenixKit.Newsletters.Web.Timezone do
   this is display-only, via `PhoenixKit.Utils.Date.shift_to_offset/2`, which
   resolves the zone for the instant shown. Returns `"-"` for `nil`.
   """
-  def format_datetime(nil, _tz_offset), do: "-"
+  @spec format_datetime(DateTime.t() | nil, String.t()) :: String.t()
+  def format_datetime(nil, _tz), do: "-"
 
-  def format_datetime(dt, tz_offset) do
+  def format_datetime(dt, tz) do
     dt
-    |> DateUtils.shift_to_offset(tz_offset)
+    |> DateUtils.shift_to_offset(tz)
     |> Calendar.strftime("%Y-%m-%d %H:%M")
   end
 end

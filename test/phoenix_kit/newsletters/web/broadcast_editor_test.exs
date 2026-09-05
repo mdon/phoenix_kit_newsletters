@@ -30,7 +30,7 @@ defmodule PhoenixKit.Newsletters.Web.BroadcastEditorTest do
       broadcast: nil,
       saving: false,
       attachments: [],
-      tz_offset: "0",
+      tz: "0",
       tz_label: "UTC+0",
       flash: %{},
       __changed__: %{}
@@ -73,7 +73,7 @@ defmodule PhoenixKit.Newsletters.Web.BroadcastEditorTest do
           subject: "Hello",
           crm_list_uuid: Ecto.UUID.generate(),
           scheduled_at: "2026-07-20T21:58",
-          tz_offset: "3"
+          tz: "3"
         })
 
       {:noreply, updated} = BroadcastEditor.handle_event("schedule", %{}, socket)
@@ -89,7 +89,7 @@ defmodule PhoenixKit.Newsletters.Web.BroadcastEditorTest do
           subject: "Hello",
           crm_list_uuid: Ecto.UUID.generate(),
           scheduled_at: "2026-07-20T23:30",
-          tz_offset: "-5"
+          tz: "-5"
         })
 
       {:noreply, updated} = BroadcastEditor.handle_event("schedule", %{}, socket)
@@ -105,7 +105,7 @@ defmodule PhoenixKit.Newsletters.Web.BroadcastEditorTest do
           subject: "Hello",
           crm_list_uuid: Ecto.UUID.generate(),
           scheduled_at: "2026-07-20T00:30",
-          tz_offset: "3"
+          tz: "3"
         })
 
       {:noreply, updated} = BroadcastEditor.handle_event("schedule", %{}, socket)
@@ -121,7 +121,7 @@ defmodule PhoenixKit.Newsletters.Web.BroadcastEditorTest do
           subject: "Hello",
           crm_list_uuid: Ecto.UUID.generate(),
           scheduled_at: "2026-07-20T21:58",
-          tz_offset: "0"
+          tz: "0"
         })
 
       {:noreply, updated} = BroadcastEditor.handle_event("schedule", %{}, socket)
@@ -136,7 +136,7 @@ defmodule PhoenixKit.Newsletters.Web.BroadcastEditorTest do
           subject: "Hello",
           crm_list_uuid: Ecto.UUID.generate(),
           scheduled_at: "not-a-date",
-          tz_offset: "3"
+          tz: "3"
         })
 
       {:noreply, updated} = BroadcastEditor.handle_event("schedule", %{}, socket)
@@ -244,7 +244,7 @@ defmodule PhoenixKit.Newsletters.Web.BroadcastEditorTest do
   end
 
   describe "handle_params(:new) — resolves the viewer's timezone from the current user" do
-    test "tz_offset/tz_label come from phoenix_kit_current_user.user_timezone" do
+    test "tz/tz_label come from phoenix_kit_current_user.user_timezone" do
       socket =
         %Phoenix.LiveView.Socket{
           assigns: %{
@@ -261,7 +261,7 @@ defmodule PhoenixKit.Newsletters.Web.BroadcastEditorTest do
       {:noreply, updated} =
         BroadcastEditor.handle_params(%{}, "/admin/newsletters/broadcasts/new", socket)
 
-      assert updated.assigns.tz_offset == "5"
+      assert updated.assigns.tz == "5"
       assert updated.assigns.tz_label == PhoenixKit.Settings.get_timezone_label("5")
     end
   end
@@ -284,7 +284,7 @@ defmodule PhoenixKit.Newsletters.Web.BroadcastEditorTest do
           markdown_content: "hi",
           saving: false,
           broadcast: nil,
-          tz_offset: "0",
+          tz: "0",
           available_roles: []
         })
 
@@ -313,7 +313,7 @@ defmodule PhoenixKit.Newsletters.Web.BroadcastEditorTest do
           markdown_content: "",
           saving: false,
           broadcast: nil,
-          tz_offset: "0",
+          tz: "0",
           available_roles: []
         })
 

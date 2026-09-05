@@ -80,11 +80,11 @@ defmodule PhoenixKit.Newsletters.Web.BroadcastDetails do
   # render, once for the connected one — doubling this DB read when the
   # viewer has no personal timezone set). Mirrors BroadcastEditor.assign_tz/1.
   defp assign_tz(socket) do
-    tz_offset = Timezone.user_tz_offset(socket)
+    tz = Timezone.viewer_tz(socket)
 
     socket
-    |> assign(:tz_offset, tz_offset)
-    |> assign(:tz_label, Timezone.tz_label(tz_offset))
+    |> assign(:tz, tz)
+    |> assign(:tz_label, Timezone.tz_label(tz))
   end
 
   @impl true

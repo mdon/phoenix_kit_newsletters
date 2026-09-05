@@ -112,11 +112,11 @@
               <p class="text-base-content/60 text-xs font-medium uppercase mb-1">
                 {gettext("Scheduled at")}
               </p>
-              <p class="font-medium">{format_datetime(@broadcast.scheduled_at, @tz_offset)}</p>
+              <p class="font-medium">{format_datetime(@broadcast.scheduled_at, @tz)}</p>
             </div>
             <div>
               <p class="text-base-content/60 text-xs font-medium uppercase mb-1">{gettext("Sent at")}</p>
-              <p class="font-medium">{format_datetime(@broadcast.sent_at, @tz_offset)}</p>
+              <p class="font-medium">{format_datetime(@broadcast.sent_at, @tz)}</p>
             </div>
           </div>
 
@@ -251,13 +251,13 @@
                   </span>
                 </.table_default_cell>
                 <.table_default_cell class="text-sm text-base-content/70">
-                  {format_datetime(delivery.sent_at, @tz_offset)}
+                  {format_datetime(delivery.sent_at, @tz)}
                 </.table_default_cell>
                 <.table_default_cell class="text-sm text-base-content/70">
-                  {format_datetime(delivery.delivered_at, @tz_offset)}
+                  {format_datetime(delivery.delivered_at, @tz)}
                 </.table_default_cell>
                 <.table_default_cell class="text-sm text-base-content/70">
-                  {format_datetime(delivery.opened_at, @tz_offset)}
+                  {format_datetime(delivery.opened_at, @tz)}
                 </.table_default_cell>
                 <.table_default_cell class="text-sm text-error max-w-xs truncate">
                   {delivery.error || ""}
@@ -286,13 +286,13 @@
                   <%!-- Body: key/value grid --%>
                   <div class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
                     <div class="text-base-content/60">{gettext("Sent at")}</div>
-                    <div>{format_datetime(delivery.sent_at, @tz_offset)}</div>
+                    <div>{format_datetime(delivery.sent_at, @tz)}</div>
 
                     <div class="text-base-content/60">{gettext("Delivered at")}</div>
-                    <div>{format_datetime(delivery.delivered_at, @tz_offset)}</div>
+                    <div>{format_datetime(delivery.delivered_at, @tz)}</div>
 
                     <div class="text-base-content/60">{gettext("Opened at")}</div>
-                    <div>{format_datetime(delivery.opened_at, @tz_offset)}</div>
+                    <div>{format_datetime(delivery.opened_at, @tz)}</div>
 
                     <%= if delivery.error do %>
                       <div class="text-base-content/60">{gettext("Error")}</div>

@@ -32,13 +32,13 @@ defmodule PhoenixKit.Newsletters.Web.BroadcastsTest do
   # twice per connection (disconnected + connected render), which would
   # double the uncached DB read behind a viewer with no personal timezone
   # set. See BroadcastEditor's assign_tz/1 for the same pattern.
-  test "handle_params resolves tz_offset from the viewer's profile timezone" do
+  test "handle_params resolves tz from the viewer's profile timezone" do
     user = %User{user_timezone: "3"}
 
     {:noreply, socket} =
       Broadcasts.handle_params(%{}, "/admin/newsletters/broadcasts", socket_with_user(user))
 
-    assert socket.assigns.tz_offset == "3"
+    assert socket.assigns.tz == "3"
   end
 
   test "handle_params falls back to the system time_zone setting when no personal timezone is set" do
@@ -48,7 +48,7 @@ defmodule PhoenixKit.Newsletters.Web.BroadcastsTest do
     {:noreply, socket} =
       Broadcasts.handle_params(%{}, "/admin/newsletters/broadcasts", socket_with_user(user))
 
-    assert socket.assigns.tz_offset == "-5"
+    assert socket.assigns.tz == "-5"
   end
 
   test "handle_params falls back to UTC when there's no viewer at all" do
@@ -59,6 +59,6 @@ defmodule PhoenixKit.Newsletters.Web.BroadcastsTest do
         %Phoenix.LiveView.Socket{assigns: %{__changed__: %{}}}
       )
 
-    assert socket.assigns.tz_offset == "0"
+    assert socket.assigns.tz == "0"
   end
 end
