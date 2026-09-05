@@ -262,7 +262,7 @@ defmodule PhoenixKit.Newsletters.Web.BroadcastEditorTest do
         BroadcastEditor.handle_params(%{}, "/admin/newsletters/broadcasts/new", socket)
 
       assert updated.assigns.tz_offset == "5"
-      assert updated.assigns.tz_label =~ "UTC+5"
+      assert updated.assigns.tz_label == PhoenixKit.Settings.get_timezone_label("5")
     end
   end
 

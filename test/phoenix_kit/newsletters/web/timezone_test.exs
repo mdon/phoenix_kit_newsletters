@@ -64,10 +64,21 @@ defmodule PhoenixKit.Newsletters.Web.TimezoneTest do
   end
 
   describe "tz_label/1" do
-    test "resolves a known offset to its full descriptive label, without loading roles" do
-      assert Timezone.tz_label("3") == "UTC+3 (Istanbul, Riyadh, Nairobi, Baghdad, Moscow)"
-      assert Timezone.tz_label("-5") == "UTC-5 (New York, Toronto, Bogotá, Lima)"
-      assert Timezone.tz_label("0") == "UTC+0 (London, Dublin, Lisbon, Accra)"
+    test "is core's label, for an IANA id and for a legacy offset alike" do
+      assert Timezone.tz_label("Europe/Warsaw") == Settings.get_timezone_label("Europe/Warsaw")
+      assert Timezone.tz_label("Europe/Warsaw") =~ "Europe/Warsaw"
+      assert Timezone.tz_label("3") == Settings.get_timezone_label("3")
+      assert Timezone.tz_label("3") =~ "UTC+03"
+    end
+  end
+
+  describe "format_datetime/2 with an IANA zone" do
+    test "follows daylight saving on the date shown" do
+      assert Timezone.format_datetime(~U[2026-01-15 08:00:00Z], "Europe/Tallinn") ==
+               "2026-01-15 10:00"
+
+      assert Timezone.format_datetime(~U[2026-07-15 08:00:00Z], "Europe/Tallinn") ==
+               "2026-07-15 11:00"
     end
   end
 end
