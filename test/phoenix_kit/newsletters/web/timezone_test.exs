@@ -16,12 +16,18 @@ defmodule PhoenixKit.Newsletters.Web.TimezoneTest do
 
   describe "viewer_tz/1 — resolves the viewer's timezone (profile-first)" do
     test "uses the profile timezone when the viewer has set one" do
-      # Unsigned, matching how both the profile dropdown (reusing core's
-      # Settings.get_setting_options()["time_zone"] values, e.g. "3") and the
-      # "use browser timezone" one-click button actually store it.
+      # A legacy offset, still on any account written before core moved the
+      # picker to IANA ids — both the profile dropdown (core's
+      # Settings.timezone_options/0) and the "use browser timezone" one-click
+      # button store an identifier now, so cover that one too.
       user = %User{user_timezone: "3"}
 
       assert Timezone.viewer_tz(socket_with_user(%{phoenix_kit_current_user: user})) == "3"
+
+      user = %User{user_timezone: "Europe/Warsaw"}
+
+      assert Timezone.viewer_tz(socket_with_user(%{phoenix_kit_current_user: user})) ==
+               "Europe/Warsaw"
     end
 
     test "falls back to the system time_zone setting when the profile timezone is unset" do

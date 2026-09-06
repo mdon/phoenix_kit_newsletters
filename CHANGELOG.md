@@ -1,5 +1,43 @@
 # Changelog
 
+## 0.2.2 - 2026-09-06
+
+### Changed
+
+- Timezone labels in the broadcast admin pages come from core's
+  `PhoenixKit.Settings.get_timezone_label/1` again, and the private copy of
+  core's old picker list that `Web.Timezone` carried to avoid the DB cost of
+  `Settings.get_setting_options/0` is gone — core's accessor resolves without
+  querying roles, so the copy no longer bought anything. The copy had also
+  drifted past core's move to IANA identifiers: it labelled a legacy `"2"` with
+  cities that are on UTC+2 only half the year, and had no entry at all for an id
+  such as `Europe/Warsaw` — the value an account holds once it has touched
+  core's picker — which fell through to a raw fallback. (#33)
+
+- **`Web.Timezone.user_tz_offset/1` is now `viewer_tz/1`.** The value has been a
+  timezone, not an offset, since core 2.13.9, and the `tz_offset` assigns and
+  params across the three broadcast pages are `tz` to match. A caller outside
+  this package (the module is a LiveView-internal helper, so there should be
+  none) has to follow the rename. (#33)
+
+- `viewer_tz/1` reads `:user_timezone` off the assigned user itself rather than
+  handing a possibly-partial map to core's resolver, which raises on a map
+  without the column. The old `rescue` answered `"0"` there — UTC, not the
+  site's zone — for exactly the partial maps that test scopes and degraded
+  embeds carry; a blank value read the same way. Both now resolve to the site
+  setting, core's rule. (#33)
+
+- Dependency updates: `phoenix_kit` 2.15.1, `phoenix` 1.8.13,
+  `phoenix_live_view` 1.2.11, `oban` 2.24.1, `ecto` 3.14.2 and the transitive
+  set they pull.
+
+### Fixed
+
+- Post-merge review of #33: a comment in the timezone tests still described the
+  pre-IANA world the PR removes — core's picker and the "use browser timezone"
+  button both store an identifier now, not an unsigned offset. Corrected, and
+  the test extended to cover an IANA value.
+
 ## 0.2.1 - 2026-08-11
 
 ### Changed
