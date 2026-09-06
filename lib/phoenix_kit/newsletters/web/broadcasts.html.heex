@@ -39,9 +39,9 @@
             %{label: gettext("Bounced"), value: broadcast.bounced_count},
             %{
               label: gettext("Scheduled at"),
-              value: format_datetime(broadcast.scheduled_at, @tz_offset)
+              value: format_datetime(broadcast.scheduled_at, @tz)
             },
-            %{label: gettext("Sent at"), value: format_datetime(broadcast.sent_at, @tz_offset)}
+            %{label: gettext("Sent at"), value: format_datetime(broadcast.sent_at, @tz)}
           ]
         end
       }
@@ -135,10 +135,10 @@
             {broadcast.bounced_count}
           </.table_default_cell>
           <.table_default_cell class="text-sm text-base-content/70">
-            {format_datetime(broadcast.scheduled_at, @tz_offset)}
+            {format_datetime(broadcast.scheduled_at, @tz)}
           </.table_default_cell>
           <.table_default_cell class="text-sm text-base-content/70">
-            {format_datetime(broadcast.sent_at, @tz_offset)}
+            {format_datetime(broadcast.sent_at, @tz)}
           </.table_default_cell>
         </.table_default_row>
       </.table_default_body>

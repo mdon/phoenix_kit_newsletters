@@ -281,10 +281,10 @@
               </button>
             </div>
             <p
-              :if={schedule_preview(@scheduled_at, @tz_offset, @tz_label)}
+              :if={schedule_preview(@scheduled_at, @tz, @tz_label)}
               class="text-xs text-base-content/60"
             >
-              {schedule_preview(@scheduled_at, @tz_offset, @tz_label)}
+              {schedule_preview(@scheduled_at, @tz, @tz_label)}
             </p>
           </div>
         </div>

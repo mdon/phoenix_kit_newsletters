@@ -107,7 +107,7 @@ defmodule PhoenixKit.Newsletters.Web.BroadcastEditor do
      )
      |> assign(
        :scheduled_at,
-       DateUtils.format_datetime_local(broadcast.scheduled_at, socket.assigns.tz_offset)
+       DateUtils.format_datetime_local(broadcast.scheduled_at, socket.assigns.tz)
      )
      |> assign(:attachments, broadcast.attachments || [])
      |> load_attachment_files()
@@ -214,7 +214,7 @@ defmodule PhoenixKit.Newsletters.Web.BroadcastEditor do
         {:noreply, put_flash(socket, :error, gettext("Please select a schedule date and time"))}
 
       scheduled_at_str ->
-        case DateUtils.parse_datetime_local(scheduled_at_str, socket.assigns.tz_offset) do
+        case DateUtils.parse_datetime_local(scheduled_at_str, socket.assigns.tz) do
           {:ok, scheduled_at} ->
             save_broadcast(socket, "scheduled", %{scheduled_at: scheduled_at})
 
@@ -579,11 +579,11 @@ defmodule PhoenixKit.Newsletters.Web.BroadcastEditor do
   # times identically; the label lookup there also avoids loading every
   # role just to name one zone.
   defp assign_tz(socket) do
-    tz_offset = Timezone.user_tz_offset(socket)
+    tz = Timezone.viewer_tz(socket)
 
     socket
-    |> assign(:tz_offset, tz_offset)
-    |> assign(:tz_label, Timezone.tz_label(tz_offset))
+    |> assign(:tz, tz)
+    |> assign(:tz_label, Timezone.tz_label(tz))
   end
 
   # Human-readable confirmation of what the typed local time resolves to,
@@ -592,11 +592,11 @@ defmodule PhoenixKit.Newsletters.Web.BroadcastEditor do
   # nothing typed yet or the value can't be parsed. Exported (still
   # undocumented, same as this module's other small helpers) so tests can
   # call it directly.
-  def schedule_preview("", _tz_offset, _tz_label), do: nil
+  def schedule_preview("", _tz, _tz_label), do: nil
 
-  def schedule_preview(scheduled_at_str, tz_offset, tz_label) do
+  def schedule_preview(scheduled_at_str, tz, tz_label) do
     with [_date, local_time] <- String.split(scheduled_at_str, "T", parts: 2),
-         {:ok, utc_dt} <- DateUtils.parse_datetime_local(scheduled_at_str, tz_offset) do
+         {:ok, utc_dt} <- DateUtils.parse_datetime_local(scheduled_at_str, tz) do
       gettext("Sends at %{local} (%{tz}) · %{utc} UTC",
         local: String.slice(local_time, 0, 5),
         tz: tz_label,
