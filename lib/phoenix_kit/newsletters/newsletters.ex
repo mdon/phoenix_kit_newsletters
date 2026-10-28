@@ -284,6 +284,13 @@ defmodule PhoenixKit.Newsletters do
   @impl PhoenixKit.Module
   def migration_module, do: PhoenixKitNewsletters.Migrations
 
+  @doc """
+  The manifest of this module's tables, for `mix phoenix_kit.repair` and
+  `mix phoenix_kit.doctor`; see `PhoenixKit.Newsletters.ExpectedSchema`.
+  """
+  @impl PhoenixKit.Module
+  def expected_schema, do: PhoenixKit.Newsletters.ExpectedSchema
+
   alias PhoenixKit.Newsletters.{
     Broadcast,
     Broadcaster,
